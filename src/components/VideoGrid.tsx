@@ -17,7 +17,7 @@ interface VideoGridProps {
 
 export default function VideoGrid({ videos }: VideoGridProps) {
   return (
-    <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 !gap-6 !mt-12 !px-4 !mb-10">
+    <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 !gap-6 !mt-6!px-4 !mb-10">
       {videos.map(video => (
         <VideoCard key={video.id} video={video} />
       ))}

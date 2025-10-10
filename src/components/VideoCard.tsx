@@ -19,7 +19,7 @@ export default function VideoCard({ video }: VideoCardProps) {
   return (
     <Link
       to={`/videos/${video.id}`}
-      className="flex flex-col rounded-lg overflow-hidden shadow-lg hover:shadow-2xl transition w-64 bg-gray-900"
+      className="flex flex-col rounded-lg hover:scale-105 hover:cursor-pointer transition overflow-hidden shadow-lg hover:shadow-2xl w-64 bg-gray-900"
     >
       <img src={video.thumbnail} alt={video.title} className="w-full h-40 object-cover"/>
       <div className="!p-2">

@@ -57,7 +57,7 @@ export default function Videos() {
         />
 
         {/* Video grid */}
-        <div className="!mt-8">
+        <div>
           {filteredVideos.length > 0 ? (
             <VideoGrid videos={filteredVideos} />
           ) : (

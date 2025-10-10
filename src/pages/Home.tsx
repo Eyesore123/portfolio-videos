@@ -9,27 +9,52 @@ import '../index.css';
 
 const allCategories = ['All', ...Array.from(new Set(videos.map(v => v.category)))];
 
+const categoryDescriptions: Record<string, string> = {
+  "Anime + Phonk": "Fast-paced anime edits with energetic phonk beats and stylish motion.",
+  "Anime": "A selection of cinematic anime edits and visual experiments.",
+};
+
 export default function Home() {
   const [activeCategory, setActiveCategory] = useState('All');
 
-  const filteredVideos = activeCategory === 'All'
-    ? videos
-    : videos.filter(v => v.category.includes(activeCategory));
+  const filteredVideos =
+    activeCategory === 'All'
+      ? videos
+      : videos.filter(v => v.category.includes(activeCategory));
+
+  // Randomize and limit to 4
+  const visibleVideos = [...filteredVideos].sort(() => Math.random() - 0.5).slice(0, 4);
 
   return (
     <div className="layout-wrapper">
       <Navbar />
-      <h1 className="sr-only">Joni's video library - an amazing collection of high quality edits and reels | Joni Putkinen</h1>
+      <h1 className="sr-only">
+        Joni's video library - an amazing collection of high-quality edits and reels | Joni Putkinen
+      </h1>
+
       <Hero
         title="Joni's video library"
         subtitle="Explore amazing videos, video editing projects, reels and experiments!"
       />
+
       <Categories
         categories={allCategories}
         activeCategory={activeCategory}
         onSelect={setActiveCategory}
       />
-      <VideoCarousel videos={filteredVideos} />
+
+      <section className="!mt-0">
+        <VideoCarousel videos={visibleVideos} />
+        <div className="!mt-0 !mb-4 flex justify-center items-center gap-2 w-full">
+            <p className="w-full text-center text-gray-400 !mt-0 !mb-4 max-w-2xl mx-auto">
+            {activeCategory === 'All'
+                ? "Here you see 4 random videos. Click on a category to explore more!"
+                : categoryDescriptions[activeCategory] ||
+                "Here you see 4 random videos from this category. Visit the Videos page to see more!"}
+            </p>
+        </div>
+      </section>
+
       <Footer />
     </div>
   );
