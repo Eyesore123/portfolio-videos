@@ -11,6 +11,10 @@ interface Video {
   thumbnail: string;
   src: string;
   description?: string;
+  contributors?: string; // e.g. "Color grading: Alex K., Sound design: Mira P."
+  music?: string; // e.g. "Neon Pulse — Kavinsky"
+  musicLink?: string; // e.g. "https://example.com/track"
+  contributorLink?: string; // e.g. "https://example.com/contributor"
 }
 
 interface VideoPlayerProps {
@@ -29,7 +33,7 @@ export default function VideoPlayer({ video }: VideoPlayerProps) {
     size: '',
   });
 
-  // Load metadata including actual file size
+  // Load metadata including file size
   useEffect(() => {
     const vid = videoRef.current;
     if (!vid) return;
@@ -39,7 +43,6 @@ export default function VideoPlayer({ video }: VideoPlayerProps) {
       const width = vid.videoWidth;
       const height = vid.videoHeight;
 
-      // Try fetching actual file size
       let sizeText = 'Unknown';
       try {
         const response = await fetch(video.src, { method: 'HEAD' });
@@ -63,7 +66,7 @@ export default function VideoPlayer({ video }: VideoPlayerProps) {
     return () => vid.removeEventListener('loadedmetadata', handleLoadedMetadata);
   }, [video.src]);
 
-  // Handle end animation
+  // Animate overlay when video ends
   useEffect(() => {
     if (isEnded && overlayRef.current) {
       gsap.fromTo(
@@ -73,6 +76,14 @@ export default function VideoPlayer({ video }: VideoPlayerProps) {
       );
     }
   }, [isEnded]);
+
+  // Reset overlay when the video source changes
+  useEffect(() => {
+    setIsEnded(false);
+    if (overlayRef.current) {
+      gsap.set(overlayRef.current, { opacity: 0 }); // instantly hide old overlay
+    }
+  }, [video.src]);
 
   const handleReplay = () => {
     const vid = videoRef.current;
@@ -84,11 +95,12 @@ export default function VideoPlayer({ video }: VideoPlayerProps) {
   };
 
   return (
-    <section className="flex flex-col items-center justify-center !mt-38 !px-4 w-full max-w-6xl mx-auto text-gray-300">
+    <section className="flex flex-col items-center justify-center !mt-36 !px-4 w-full max-w-6xl mx-auto text-gray-300">
       {/* Title */}
-      <h1 className="text-4xl font-extrabold gradienttext text-center !mb-12 lg:!mb-20">
+      <h1 className="sr-only">Joni Putkinen | Joni's video edit of {video.title}</h1>
+      <h3 className="text-4xl font-extrabold gradienttext text-center !mb-12 lg:!mb-14">
         {video.title}
-      </h1>
+      </h3>
 
       {/* Video + details */}
       <div className="flex flex-col lg:flex-row items-start justify-center !gap-10 xl:!gap-20 w-full relative">
@@ -100,33 +112,35 @@ export default function VideoPlayer({ video }: VideoPlayerProps) {
             controls
             onEnded={() => setIsEnded(true)}
             onPlay={() => setIsEnded(false)}
-            className="w-full max-w-4xl rounded-lg shadow-lg border border-gray-700 2xl:!max-h-[800px]"
+            className="w-full max-w-4xl rounded-lg shadow-lg border border-gray-700 2xl:!max-h-[600px] 3xl:!max-h-[1000px] bg-black"
           />
 
-          {/* Animated overlay when ended */}
+          {/* Overlay when video ends */}
           {isEnded && (
             <div
               ref={overlayRef}
-              className="absolute inset-0 flex flex-col items-center justify-center bg-black bg-opacity-80 rounded-lg"
+              className="absolute inset-0 flex flex-col items-center justify-center rounded-lg pointer-events-none"
             >
-              <img
-                src={video.thumbnail}
-                alt={video.title}
-                className="w-32 h-32 object-cover rounded mb-6 border border-gray-600 shadow-md"
-              />
-              <button
-                onClick={handleReplay}
-                className="bg-purple-600 hover:bg-purple-700 text-white px-6 py-2 rounded font-semibold mb-3 transition-transform hover:scale-105"
-              >
-                Replay
-              </button>
-              <a
-                href={video.src}
-                download
-                className="text-gray-300 hover:text-white underline text-sm"
-              >
-                Download video
-              </a>
+              <div className="flex flex-col items-center pointer-events-auto">
+                <img
+                  src={video.thumbnail}
+                  alt={video.title}
+                  className="w-32 h-32 object-cover rounded !mb-6 border border-gray-600 shadow-md"
+                />
+                <button
+                  onClick={handleReplay}
+                  className="bg-purple-600 hover:bg-purple-700 hover:cursor-pointer text-white !px-6 !py-2 rounded font-semibold !mb-3 transition-transform hover:scale-105"
+                >
+                  Replay
+                </button>
+                <a
+                  href={video.src}
+                  download
+                  className="text-gray-300 hover:text-white underline !text-sm"
+                >
+                  Download video
+                </a>
+              </div>
             </div>
           )}
         </div>
@@ -134,35 +148,44 @@ export default function VideoPlayer({ video }: VideoPlayerProps) {
         {/* Right: Details */}
         <div className="lg:flex-[1] !mt-8 lg:!mt-0 lg:text-left text-center 2xl:!ml-6">
           {video.description && (
-            <p className="text-gray-400 !mb-6 leading-relaxed">{video.description}</p>
+            <div className="text-gray-400 !mb-6 leading-relaxed">{video.description}</div>
           )}
 
-          <p className="!mb-2">
-            <span className="font-semibold text-white">Year:</span> {video.year}
-          </p>
-          <p className="!mb-2">
+          {/* Thumbnail preview */}
+          <div className="!mt-10 !mb-6">
+            <img
+              src={video.thumbnail}
+              alt={video.title}
+              className="!w-32 !h-32 object-cover mx-auto lg:!mx-0 rounded-lg border border-gray-700"
+            />
+          </div>
+
+          <div className="!mb-2">
+            <span className="font-semibold text-white !text-sm">Year:</span> {video.year}
+          </div>
+          <div className="!mb-2">
             <span className="font-semibold text-white">Editing program:</span> {video.program}
-          </p>
-          <p className="!mb-2">
+          </div>
+          <div className="!mb-2">
             <span className="font-semibold text-white">Category:</span> {video.category}
-          </p>
+          </div>
 
           {/* Auto metadata */}
           <div className="!mt-6 !space-y-1 !text-sm text-gray-400">
-            <p>
+            <div>
               <span className="font-semibold text-white">Duration:</span> {metadata.duration || 'Loading...'}
-            </p>
-            <p>
+            </div>
+            <div>
               <span className="font-semibold text-white">Resolution:</span> {metadata.resolution || 'Loading...'}
-            </p>
-            <p>
+            </div>
+            <div>
               <span className="font-semibold text-white">File size:</span> {metadata.size || '...'}
-            </p>
+            </div>
           </div>
 
           {/* Quality selector */}
           <div className="!mt-8">
-            <label className="text-sm text-gray-400 !mr-2">Quality:</label>
+            <label className="!text-sm text-gray-400 !mr-2">Quality:</label>
             <select
               value={selectedQuality}
               onChange={(e) => setSelectedQuality(e.target.value)}
@@ -174,14 +197,57 @@ export default function VideoPlayer({ video }: VideoPlayerProps) {
             </select>
           </div>
 
-          {/* Thumbnail preview */}
-          <div className="!mt-10">
-            <img
-              src={video.thumbnail}
-              alt={video.title}
-              className="!w-32 !h-32 object-cover mx-auto lg:!mx-0 rounded-lg border border-gray-700"
-            />
+          {/* Download button on details side */}
+          <div className="!mt-8">
+            <a
+              href={video.src}
+              download
+              className="inline-block bg-purple-700 hover:bg-purple-800 text-white font-semibold !px-5 !py-2 rounded transition-transform hover:scale-105"
+            >
+              ⬇ Download video
+            </a>
           </div>
+
+          {/* Music info */}
+          {video.music && (
+            <div className="!mt-8 text-gray-400">
+              <p>
+                <span className="font-semibold text-white">Music:</span>{' '}
+                {video.musicLink ? (
+                  <a
+                    href={video.musicLink}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="text-purple-400 hover:underline"
+                  >
+                    {video.music}
+                  </a>
+                ) : (
+                  video.music
+                )}
+              </p>
+            </div>
+          )}
+
+          {/* Contributors */}
+          {video.contributors && (
+            <div className="!mt-6 text-gray-400">
+              <span className="font-semibold text-white block !mb-1">Contributors:</span>
+              {video.contributorLink ? (
+                <a
+                  href={video.contributorLink}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="text-purple-400 hover:underline"
+                >
+                  {video.contributors}
+                </a>
+              ) : (
+                <p>{video.contributors}</p>
+              )}
+            </div>
+          )}
+
         </div>
       </div>
     </section>

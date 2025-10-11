@@ -10,7 +10,7 @@ import '../index.css';
 const allCategories = ['All', ...Array.from(new Set(videos.map(v => v.category)))];
 
 const categoryDescriptions: Record<string, string> = {
-  "Anime + Phonk": "Fast-paced anime edits with energetic phonk beats and stylish motion.",
+  "Anime + Music": "Fast-paced anime edits with energetic beats and stylish motion.",
   "Anime": "A selection of cinematic anime edits and visual experiments.",
 };
 

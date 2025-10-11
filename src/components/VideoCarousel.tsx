@@ -30,8 +30,8 @@ export default function VideoCarousel({ videos }: VideoCarouselProps) {
           >
             <img src={video.thumbnail} alt={video.title} className="w-full h-40 object-cover"/>
             <div className="!p-2 bg-gray-900">
-              <h5 className="text-white font-semibold">{video.title}</h5>
-              <p className="!text-sm text-gray-400">{video.year} | {video.program}</p>
+              <h5 className="text-white font-semibold !pb-3 !border-b-1 border-white">{video.title}</h5>
+              <p className="!text-sm text-gray-400 !mt-3">{video.year} | {video.category}</p>
             </div>
           </Link>
         ))}

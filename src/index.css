@@ -135,6 +135,13 @@ body {
   color: var(--text-color);
 }
 
+section p {
+  line-height: 1.6;
+  max-width: 800px;
+  text-align: center;
+  margin: 0 auto;
+}
+
 /* Components */
 
 .footer {
