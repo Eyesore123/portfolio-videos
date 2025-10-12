@@ -48,7 +48,7 @@ export default function Home() {
         <div className="!mt-0 !mb-4 flex justify-center items-center gap-2 w-full">
             <p className="w-full text-center text-gray-400 !mt-0 !mb-4 max-w-2xl mx-auto">
             {activeCategory === 'All'
-                ? "Here you see 4 random videos. Click on a category to explore more!"
+                ? "Here you see 4 random videos. Click on a category or Video page to explore more!"
                 : categoryDescriptions[activeCategory] ||
                 "Here you see 4 random videos from this category. Visit the Videos page to see more!"}
             </p>

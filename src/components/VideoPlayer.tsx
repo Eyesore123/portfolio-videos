@@ -1,6 +1,7 @@
 import { useEffect, useRef, useState } from 'react';
 import gsap from 'gsap';
 import '../index.css';
+import ThumbnailWithPreview from './ThumbnailWithPreview';
 
 interface Video {
   id: string;
@@ -11,10 +12,10 @@ interface Video {
   thumbnail: string;
   src: string;
   description?: string;
-  contributors?: string; // e.g. "Color grading: Alex K., Sound design: Mira P."
-  music?: string; // e.g. "Neon Pulse — Kavinsky"
-  musicLink?: string; // e.g. "https://example.com/track"
-  contributorLink?: string; // e.g. "https://example.com/contributor"
+  contributors?: string;
+  music?: string;
+  musicLink?: string;
+  contributorLink?: string;
 }
 
 interface VideoPlayerProps {
@@ -81,7 +82,7 @@ export default function VideoPlayer({ video }: VideoPlayerProps) {
   useEffect(() => {
     setIsEnded(false);
     if (overlayRef.current) {
-      gsap.set(overlayRef.current, { opacity: 0 }); // instantly hide old overlay
+      gsap.set(overlayRef.current, { opacity: 0 });
     }
   }, [video.src]);
 
@@ -95,9 +96,9 @@ export default function VideoPlayer({ video }: VideoPlayerProps) {
   };
 
   return (
-    <section className="flex flex-col items-center justify-center !mt-36 !px-4 w-full max-w-6xl mx-auto text-gray-300">
+    <section className="flex flex-col items-center justify-center !mt-36 !px-4 w-full max-w-7xl mx-auto text-gray-300">
       {/* Title */}
-      <h1 className="sr-only">Joni Putkinen | Joni's video edit of {video.title}</h1>
+      <h2 className="sr-only">Joni Putkinen | Joni's video edit of {video.title}</h2>
       <h3 className="text-4xl font-extrabold gradienttext text-center !mb-12 lg:!mb-14">
         {video.title}
       </h3>
@@ -122,11 +123,7 @@ export default function VideoPlayer({ video }: VideoPlayerProps) {
               className="absolute inset-0 flex flex-col items-center justify-center rounded-lg pointer-events-none"
             >
               <div className="flex flex-col items-center pointer-events-auto">
-                <img
-                  src={video.thumbnail}
-                  alt={video.title}
-                  className="w-32 h-32 object-cover rounded !mb-6 border border-gray-600 shadow-md"
-                />
+                <ThumbnailWithPreview src={video.thumbnail} alt={video.title} size={180} />
                 <button
                   onClick={handleReplay}
                   className="bg-purple-600 hover:bg-purple-700 hover:cursor-pointer text-white !px-6 !py-2 rounded font-semibold !mb-3 transition-transform hover:scale-105"
@@ -152,12 +149,8 @@ export default function VideoPlayer({ video }: VideoPlayerProps) {
           )}
 
           {/* Thumbnail preview */}
-          <div className="!mt-10 !mb-6">
-            <img
-              src={video.thumbnail}
-              alt={video.title}
-              className="!w-32 !h-32 object-cover mx-auto lg:!mx-0 rounded-lg border border-gray-700"
-            />
+          <div className="!mt-10 !mb-6 flex-col md:flex-row flex !items-center">
+            <ThumbnailWithPreview src={video.thumbnail} alt={video.title} size={128} />
           </div>
 
           <div className="!mb-2">
@@ -197,7 +190,7 @@ export default function VideoPlayer({ video }: VideoPlayerProps) {
             </select>
           </div>
 
-          {/* Download button on details side */}
+          {/* Download button */}
           <div className="!mt-8">
             <a
               href={video.src}
@@ -247,7 +240,6 @@ export default function VideoPlayer({ video }: VideoPlayerProps) {
               )}
             </div>
           )}
-
         </div>
       </div>
     </section>
