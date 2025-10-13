@@ -1,25 +1,33 @@
-import { useState, useMemo } from 'react';
+import { useState, useMemo, useEffect } from 'react';
 import Navbar from '../components/Navbar';
 import Footer from '../components/Footer';
 import Categories from '../components/Categories';
 import VideoGrid from '../components/VideoGrid';
-import videos from '../data/videos.json';
 import '../index.css';
 
 export default function Videos() {
+  const [videos, setVideos] = useState<any[]>([]);
   const [search, setSearch] = useState('');
   const [activeCategory, setActiveCategory] = useState('All');
   const [currentPage, setCurrentPage] = useState(0);
   const [inputValue, setInputValue] = useState(1);
   const videosPerPage = 16;
 
-  // Build categories list dynamically
+  useEffect(() => {
+    fetch('/data/videos.json')
+      .then(res => {
+        if (!res.ok) throw new Error('Failed to fetch videos');
+        return res.json();
+      })
+      .then(data => setVideos(data))
+      .catch(err => console.error('Error loading videos:', err));
+  }, []);
+
   const allCategories = useMemo(
     () => ['All', ...Array.from(new Set(videos.map(v => v.category)))],
-    []
+    [videos]
   );
 
-  // Filter videos by search + category
   const filteredVideos = useMemo(() => {
     return videos.filter(v => {
       const matchesSearch =
@@ -29,15 +37,13 @@ export default function Videos() {
         activeCategory === 'All' || v.category === activeCategory;
       return matchesSearch && matchesCategory;
     });
-  }, [search, activeCategory]);
+  }, [videos, search, activeCategory]);
 
-  // Calculate pagination
   const totalPages = Math.ceil(filteredVideos.length / videosPerPage);
   const startIndex = currentPage * videosPerPage;
   const visibleVideos = filteredVideos.slice(startIndex, startIndex + videosPerPage);
   const hasMore = currentPage < totalPages - 1;
 
-  // Handle page change
   const handlePageChange = (page: number) => {
     if (page < 0 || page >= totalPages) return;
     window.scrollTo({ top: 0, behavior: 'smooth' });
@@ -57,8 +63,7 @@ export default function Videos() {
     }
   };
 
-  // Reset pagination when filters change
-  useMemo(() => {
+  useEffect(() => {
     setCurrentPage(0);
     setInputValue(1);
   }, [search, activeCategory]);
@@ -75,7 +80,6 @@ export default function Videos() {
           All Videos
         </h2>
 
-        {/* Search */}
         <div className="flex justify-center mb-8">
           <input
             type="text"
@@ -86,20 +90,17 @@ export default function Videos() {
           />
         </div>
 
-        {/* Categories */}
         <Categories
           categories={allCategories}
           activeCategory={activeCategory}
           onSelect={setActiveCategory}
         />
 
-        {/* Video grid */}
         <div>
           {filteredVideos.length > 0 ? (
             <>
               <VideoGrid videos={visibleVideos} />
-              
-              {/* Pagination Controls */}
+
               <div className="flex justify-center items-center !gap-2 md:!gap-4 !mt-8 !mb-10 customdiv">
                 <button
                   onClick={handleFirstPage}
@@ -123,7 +124,7 @@ export default function Videos() {
 
                 <input
                   type="number"
-                  name='number'
+                  name="number"
                   value={inputValue}
                   onChange={e => setInputValue(parseInt(e.target.value) || 1)}
                   onKeyDown={handlePageInput}

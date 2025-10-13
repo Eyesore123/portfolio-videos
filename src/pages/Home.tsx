@@ -1,21 +1,34 @@
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import Navbar from '../components/Navbar';
 import Hero from '../components/Hero';
 import Categories from '../components/Categories';
 import VideoCarousel from '../components/VideoCarousel';
 import Footer from '../components/Footer';
-import videos from '../data/videos.json';
 import '../index.css';
 
-const allCategories = ['All', ...Array.from(new Set(videos.map(v => v.category)))];
-
-const categoryDescriptions: Record<string, string> = {
-  "Anime + Music": "Fast-paced anime edits with energetic beats and stylish motion.",
-  "Anime": "A selection of cinematic anime edits and visual experiments.",
-};
-
 export default function Home() {
+  const [videos, setVideos] = useState<any[]>([]);
   const [activeCategory, setActiveCategory] = useState('All');
+  const [allCategories, setAllCategories] = useState<string[]>(['All']);
+
+  useEffect(() => {
+    fetch('/data/videos.json')
+      .then(res => {
+        if (!res.ok) throw new Error('Failed to fetch videos');
+        return res.json();
+      })
+      .then(data => {
+        setVideos(data);
+        const categories = ['All', ...(data.map((v: any) => v.category) as string[])] as string[];
+        setAllCategories(categories);
+      })
+      .catch(err => console.error('Error loading videos:', err));
+  }, []);
+
+  const categoryDescriptions: Record<string, string> = {
+    "Anime + Music": "Fast-paced anime edits with energetic beats and stylish motion.",
+    "Anime": "A selection of cinematic anime edits and visual experiments.",
+  };
 
   const filteredVideos =
     activeCategory === 'All'
@@ -46,12 +59,12 @@ export default function Home() {
       <section className="!mt-0">
         <VideoCarousel videos={visibleVideos} />
         <div className="!mt-0 !mb-4 flex justify-center items-center gap-2 w-full">
-            <p className="w-full text-center text-gray-400 !mt-4 !mb-4 max-w-2xl mx-auto">
+          <p className="w-full text-center text-gray-400 !mt-4 !mb-4 max-w-2xl mx-auto">
             {activeCategory === 'All'
-                ? "Here you see 4 random videos. Click on a category or Videos page to explore more!"
-                : categoryDescriptions[activeCategory] ||
+              ? "Here you see 4 random videos. Click on a category or Videos page to explore more!"
+              : categoryDescriptions[activeCategory] ||
                 "Here you see 4 random videos from this category. Visit the Videos page to see more!"}
-            </p>
+          </p>
         </div>
       </section>
 
