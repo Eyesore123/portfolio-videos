@@ -8,7 +8,7 @@ pnpm-debug.log*
 lerna-debug.log*
 
 # Project related files and folders
-src/data/
+# src/data/
 public/videos/
 videos-merged.json
 update-report.txt
