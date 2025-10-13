@@ -14,3 +14,7 @@ update-videos-json.mjs file is used to check the videos and thumbnails that are 
 command:
 
 node update-videos-json.mjs
+
+Landing page image:
+
+<img width="1229" height="874" alt="videosite" src="https://github.com/user-attachments/assets/623bec3f-da96-4685-93df-5642e3dfb142" />
