@@ -19,9 +19,10 @@ export default function Home() {
       })
       .then(data => {
         setVideos(data);
-        const categories = ['All', ...(data.map((v: any) => v.category) as string[])] as string[];
-        setAllCategories(categories);
+        const uniqueCategories = Array.from(new Set(data.map((v: any) => v.category) as string[]));
+        setAllCategories(['All', ...uniqueCategories]);
       })
+
       .catch(err => console.error('Error loading videos:', err));
   }, []);
 
