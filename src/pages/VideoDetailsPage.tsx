@@ -69,7 +69,7 @@ export default function VideoDetailsPage() {
 
         {sameCategoryVideos.length > 0 && (
           <>
-            <h2 className="text-2xl font-bold gradienttext !mt-16 !mb-6">
+            <h2 className="text-2xl font-bold gradienttext !mt-16 !mb-12">
               More in {currentVideo.category}
             </h2>
             <VideoGrid videos={sameCategoryVideos} />
