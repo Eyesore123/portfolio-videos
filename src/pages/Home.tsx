@@ -29,6 +29,8 @@ export default function Home() {
   const categoryDescriptions: Record<string, string> = {
     "Anime + Music": "Fast-paced anime edits with energetic beats and stylish motion.",
     "Anime": "A selection of cinematic anime edits and visual experiments.",
+    "Cars": "Car edits showcasing the power of the PNP-Power car mechanic.",
+    "Humor": "Old shorts from my Finnish humor channel (Youtube).",
   };
 
   const filteredVideos =
