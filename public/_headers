@@ -1,0 +1,5 @@
+/*
+  X-Content-Type-Options: nosniff
+  Referrer-Policy: strict-origin-when-cross-origin
+  Permissions-Policy: camera=(), microphone=(), geolocation=()
+  Content-Security-Policy: default-src 'self'; script-src 'self' 'unsafe-inline' 'unsafe-eval' https://games.joniputkinen.com; style-src 'self' 'unsafe-inline'; img-src 'self' data: https://joniputkinen.com https://games.joniputkinen.com https://*.r2.dev; media-src 'self' https://*.r2.dev; connect-src 'self' https://games.joniputkinen.com https://portfolio-backend-k9okia.fly.dev https://*.r2.dev; font-src 'self' data:; object-src 'none'; frame-src 'none'; base-uri 'self'; form-action 'self'; upgrade-insecure-requests;

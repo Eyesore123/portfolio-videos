@@ -54,8 +54,8 @@ export default function VideoCarousel({ videos }: VideoCarouselProps) {
   const limitedVideos = [...videos].sort(() => Math.random() - 0.5).slice(0, 4);
 
   return (
-    <section className="!mt-0 !px-4 overflow-x-auto flex justify-center">
-      <div className="w-full flex justify-center flex-wrap !gap-4">
+    <section className="!mt-0 !px-4 overflow-x-auto overflow-y-hidden flex justify-center">
+      <div className="w-full flex justify-center flex-wrap !gap-6 xl:!gap-4">
         {limitedVideos.map((video) => (
           <VideoCard key={video.id} video={video} />
         ))}

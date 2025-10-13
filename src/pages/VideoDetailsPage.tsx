@@ -17,7 +17,7 @@ export default function VideoDetailsPage() {
       <div className="layout-wrapper">
         <Navbar />
         <main className="flex-grow text-center !mt-40 text-white">
-          <h1>Video not found</h1>
+          <div className='customsize'>Video not found</div>
         </main>
         <Footer />
       </div>

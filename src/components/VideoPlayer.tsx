@@ -27,7 +27,7 @@ export default function VideoPlayer({ video }: VideoPlayerProps) {
   const overlayRef = useRef<HTMLDivElement | null>(null);
 
   const [isEnded, setIsEnded] = useState(false);
-  const [selectedQuality, setSelectedQuality] = useState('1080p');
+  // const [selectedQuality, setSelectedQuality] = useState('1080p');
   const [metadata, setMetadata] = useState({
     duration: '',
     resolution: '',
@@ -95,6 +95,23 @@ export default function VideoPlayer({ video }: VideoPlayerProps) {
     }
   };
 
+  const handleDownload = async () => {
+  try {
+    const response = await fetch(video.src);
+    const blob = await response.blob();
+    const url = URL.createObjectURL(blob);
+    const a = document.createElement('a');
+    a.href = url;
+    a.download = `${video.title}.mp4`;
+    document.body.appendChild(a);
+    a.click();
+    a.remove();
+    URL.revokeObjectURL(url);
+  } catch (error) {
+    console.error('Download failed:', error);
+  }
+};
+
   return (
     <section className="flex flex-col items-center justify-center !mt-36 !px-4 w-full max-w-7xl mx-auto text-gray-300">
       {/* Title */}
@@ -126,13 +143,13 @@ export default function VideoPlayer({ video }: VideoPlayerProps) {
                 <ThumbnailWithPreview src={video.thumbnail} alt={video.title} size={180} />
                 <button
                   onClick={handleReplay}
-                  className="bg-purple-600 hover:bg-purple-700 hover:cursor-pointer text-white !px-6 !py-2 rounded font-semibold !mb-3 transition-transform hover:scale-105"
+                  className="bg-purple-600 hover:bg-purple-700 hover:cursor-pointer text-white !px-6 !py-2 rounded font-semibold !mb-3 !mt-2 transition-transform hover:scale-105"
                 >
                   Replay
                 </button>
                 <a
                   href={video.src}
-                  download
+                  onClick={handleDownload}
                   className="text-gray-300 hover:text-white underline !text-sm"
                 >
                   Download video
@@ -177,7 +194,7 @@ export default function VideoPlayer({ video }: VideoPlayerProps) {
           </div>
 
           {/* Quality selector */}
-          <div className="!mt-8">
+          {/* <div className="!mt-8">
             <label className="!text-sm text-gray-400 !mr-2">Quality:</label>
             <select
               value={selectedQuality}
@@ -188,7 +205,7 @@ export default function VideoPlayer({ video }: VideoPlayerProps) {
               <option value="720p">720p</option>
               <option value="480p">480p</option>
             </select>
-          </div>
+          </div> */}
 
           {/* Download button */}
           <div className="!mt-8">

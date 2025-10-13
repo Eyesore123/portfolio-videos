@@ -8,12 +8,12 @@ interface CategoriesProps {
 
 export default function Categories({ categories, activeCategory, onSelect }: CategoriesProps) {
   return (
-   <section className="!mt-12 flex justify-center items-center w-full gap-4 min-h-[50px] relative">
+   <section className="!mt-12 flex justify-center items-center !w-full !gap-4 min-h-[50px] relative">
   {/* Blur background */}
   <div className="absolute inset-0 blur2 blur4 z-0"></div>
 
   {/* Buttons */}
-  <div className="relative z-10 flex flex-row !gap-2 !-mt-4 justify-center max-w-fit px-2">
+  <div className="relative z-10 flex flex-row !gap-2 !-mt-4 !mb-1 md:!mb-0 justify-center max-w-fit !px-2">
     {categories.map(cat => (
       <button
         key={cat}

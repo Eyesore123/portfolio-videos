@@ -18,6 +18,8 @@ html {
 .layout-wrapper {
   display: flex;
   flex-direction: column;
+  justify-content: center;
+  align-items: center;
   min-height: 100vh;
   position: relative;
 }
@@ -77,6 +79,7 @@ svg {
   h1 {
     font-size: var(--fs-h1);
     font-weight: 900;
+    display:none;
   }
   h2 {
     font-size: clamp(1.5rem, 2.5vw, 2.5rem);
@@ -106,6 +109,11 @@ svg {
   small {
     font-size: var(--fs-small);
     font-weight: 600;
+  }
+
+    .customsize {
+    font-size: var(--fs-h1);
+    font-weight: 900;
   }
 }
 

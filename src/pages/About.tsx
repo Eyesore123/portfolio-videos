@@ -6,7 +6,7 @@ export default function About() {
   return (
     <div className="layout-wrapper">
       <Navbar />
-      <h1 className="sr-only">About my creative journey - Joni Putkinen</h1>
+      <div className="customsize">About my creative journey - Joni Putkinen</div>
       <h2 className="text-4xl font-bold gradienttext text-center !mb-8 !mt-50">
         About my creative journey
       </h2>
