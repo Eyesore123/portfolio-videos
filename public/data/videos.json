@@ -50,5 +50,70 @@
     "contributors": "",
     "music": "",
     "contributorLink": ""
+  },
+  {
+    "id": "5",
+    "title": "Finnish Humor Short 1",
+    "year": 2024,
+    "program": "Adobe Premiere Pro",
+    "category": "Humor",
+    "thumbnail": "https://pub-f60332726ddd486896f9169e279d5c49.r2.dev/short3-min.png",
+    "src": "https://pub-f60332726ddd486896f9169e279d5c49.r2.dev/short3.mp4",
+    "description": "Humor edit: series of old shorts from my Finnish humor channel (Youtube).",
+    "contributors": "",
+    "music": "",
+    "contributorLink": ""
+  },
+  {
+    "id": "6",
+    "title": "Finnish Humor Short 2",
+    "year": 2024,
+    "program": "Adobe Premiere Pro",
+    "category": "Humor",
+    "thumbnail": "https://pub-f60332726ddd486896f9169e279d5c49.r2.dev/short4-min.png",
+    "src": "https://pub-f60332726ddd486896f9169e279d5c49.r2.dev/short4.mp4",
+    "description": "Humor edit: series of old shorts from my Finnish humor channel (Youtube).",
+    "contributors": "",
+    "music": "",
+    "contributorLink": ""
+  },
+  {
+    "id": "7",
+    "title": "Finnish Humor Short 3",
+    "year": 2024,
+    "program": "Adobe Premiere Pro",
+    "category": "Humor",
+    "thumbnail": "https://pub-f60332726ddd486896f9169e279d5c49.r2.dev/short5-min.png",
+    "src": "https://pub-f60332726ddd486896f9169e279d5c49.r2.dev/short5.mp4",
+    "description": "Humor edit: series of old shorts from my Finnish humor channel (Youtube).",
+    "contributors": "",
+    "music": "",
+    "contributorLink": ""
+  },
+  {
+    "id": "8",
+    "title": "Finnish Humor Short 4",
+    "year": 2024,
+    "program": "Adobe Premiere Pro",
+    "category": "Humor",
+    "thumbnail": "https://pub-f60332726ddd486896f9169e279d5c49.r2.dev/short6-min.png",
+    "src": "https://pub-f60332726ddd486896f9169e279d5c49.r2.dev/short6.mp4",
+    "description": "Humor edit: series of old shorts from my Finnish humor channel (Youtube).",
+    "contributors": "",
+    "music": "",
+    "contributorLink": ""
+  },
+  {
+    "id": "9",
+    "title": "Finnish Humor Short 5",
+    "year": 2024,
+    "program": "Adobe Premiere Pro",
+    "category": "Humor",
+    "thumbnail": "https://pub-f60332726ddd486896f9169e279d5c49.r2.dev/short7-min.png",
+    "src": "https://pub-f60332726ddd486896f9169e279d5c49.r2.dev/short7.mp4",
+    "description": "Humor edit: series of old shorts from my Finnish humor channel (Youtube).",
+    "contributors": "",
+    "music": "",
+    "contributorLink": ""
   }
 ]
