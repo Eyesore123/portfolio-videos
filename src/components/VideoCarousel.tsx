@@ -43,7 +43,7 @@ function VideoCard({ video }: { video: Video }) {
       </div>
 
       <div className="!p-2 bg-gray-900">
-        <h5 className="text-white font-semibold !pb-3 !border-b border-white">{video.title}</h5>
+        <h5 className="text-white font-semibold !pb-3 !border-b border-white !min-h-[135px]">{video.title}</h5>
         <p className="text-sm text-gray-400 !mt-3">{video.year} | {video.category}</p>
       </div>
     </Link>
@@ -51,9 +51,11 @@ function VideoCard({ video }: { video: Video }) {
 }
 
 export default function VideoCarousel({ videos }: VideoCarouselProps) {
- const limitedVideos = [...videos]
-  .sort((a, b) => b.year - a.year) // newest first
-  .slice(0, 4);
+ const latestYear = Math.max(...videos.map(v => Number(v.year)));
+  const limitedVideos = videos
+    .filter(v => Number(v.year) === latestYear)
+    .sort((a, b) => Number(b.year) - Number(a.year))
+    .slice(0, 4);
 
   return (
     <section className="!mt-0 !px-4 overflow-x-auto overflow-y-hidden flex justify-center">

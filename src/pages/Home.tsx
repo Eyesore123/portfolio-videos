@@ -36,9 +36,6 @@ export default function Home() {
       ? videos
       : videos.filter(v => v.category.includes(activeCategory));
 
-  // Randomize and limit to 4
-  const visibleVideos = [...filteredVideos].sort(() => Math.random() - 0.5).slice(0, 4);
-
   return (
     <div className="layout-wrapper">
       <Navbar />
@@ -58,7 +55,7 @@ export default function Home() {
       />
 
       <section className="!mt-0">
-        <VideoCarousel videos={visibleVideos} />
+        <VideoCarousel videos={filteredVideos} />
         <div className="!mt-0 !mb-4 flex justify-center items-center gap-2 w-full">
           <p className="w-full text-center text-gray-400 !mt-4 !mb-4 max-w-2xl mx-auto">
             {activeCategory === 'All'
