@@ -105,7 +105,7 @@ export default function Videos() {
                 <button
                   onClick={handleFirstPage}
                   disabled={currentPage === 0}
-                  className="paginationbutton !px-2 !py-1 md:!px-4 md:!py-2 bg-[#5800FF] text-white rounded hover:bg-[#E900FF] disabled:opacity-50 transition-colors text-sm md:text-base"
+                  className="paginationbutton hover:cursor-pointer !px-2 !py-1 md:!px-4 md:!py-2 bg-[#5800FF] text-white rounded hover:bg-[#E900FF] disabled:opacity-50 transition-colors text-sm md:text-base"
                 >
                   <img src="/first.svg" alt="First" />
                 </button>
@@ -113,7 +113,7 @@ export default function Videos() {
                 <button
                   onClick={() => handlePageChange(currentPage - 1)}
                   disabled={currentPage === 0}
-                  className="paginationbutton !px-2 !py-1 md:!px-4 md:!py-2 bg-[#5800FF] text-white rounded hover:bg-[#E900FF] disabled:opacity-50 transition-colors text-sm md:text-base"
+                  className="paginationbutton hover:cursor-pointer !px-2 !py-1 md:!px-4 md:!py-2 bg-[#5800FF] text-white rounded hover:bg-[#E900FF] disabled:opacity-50 transition-colors text-sm md:text-base"
                 >
                   Previous
                 </button>
@@ -134,7 +134,7 @@ export default function Videos() {
                 <button
                   onClick={() => handlePageChange(currentPage + 1)}
                   disabled={!hasMore}
-                  className="paginationbutton !px-2 !py-1 md:!px-4 md:!py-2 bg-[#5800FF] text-white rounded hover:bg-[#E900FF] disabled:opacity-50 transition-colors text-sm md:text-base"
+                  className="paginationbutton hover:cursor-pointer !px-2 !py-1 md:!px-4 md:!py-2 bg-[#5800FF] text-white rounded hover:bg-[#E900FF] disabled:opacity-50 transition-colors text-sm md:text-base"
                 >
                   Next
                 </button>
@@ -142,7 +142,7 @@ export default function Videos() {
                 <button
                   onClick={handleLastPage}
                   disabled={currentPage === totalPages - 1}
-                  className="paginationbutton !px-2 !py-1 md:!px-4 md:!py-2 bg-[#5800FF] text-white rounded hover:bg-[#E900FF] disabled:opacity-50 transition-colors text-sm md:text-base"
+                  className="paginationbutton hover:cursor-pointer !px-2 !py-1 md:!px-4 md:!py-2 bg-[#5800FF] text-white rounded hover:bg-[#E900FF] disabled:opacity-50 transition-colors text-sm md:text-base"
                 >
                   <img src="/last.svg" alt="Last" />
                 </button>

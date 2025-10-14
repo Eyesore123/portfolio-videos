@@ -12,7 +12,7 @@ All of video related data is put into a JSON.
 
 I plan to use GSAP for animations, but keep other styles as close to my portfolio site and blog as possible.
 
-### `update-videos-json..js`
+### `update-videos-json.mjs`
 
 - update-videos-json.mjs file is used to check the videos and thumbnails that are stored inside the public folder to see if they match with the json data.
 - It outputs the report 'update-report.txt' and gives a new file called 'videos-merged.json', which can be used to paste the new values of new videos into the videos.json. Reduces manual work, but doesn't remove it as the video desciptions etc. still
