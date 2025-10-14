@@ -42,22 +42,29 @@ node upload.js [filename]
 
 for example, if you want to upload video.mp4 from videos folder, you type 'node upload.js video.mp4'
 
+## Images
+
 Landing page image:
 
 <img width="1229" height="874" alt="videosite" src="https://github.com/user-attachments/assets/623bec3f-da96-4685-93df-5642e3dfb142" />
 
+## Issues
+
+- Scroll to top doesn't work
+
+
 
 ## What I’ve learned
 
-How to use Cloudflare R2 for large file storage and configure access credentials.
+- How to use Cloudflare R2 for large file storage and configure access credentials.
 
-Implementing custom headers and authorization secrets for secure uploads.
+- Implementing custom headers and authorization secrets for secure uploads.
 
-Managing large video files (over 500 MB) efficiently using R2.
+- Managing large video files (over 500 MB) efficiently using R2.
 
-Writing Node.js scripts to automate uploads and JSON updates.
+- Writing Node.js scripts to automate uploads and JSON updates.
 
-Using @aws-sdk/client-s3 to interact with S3-compatible storage in Node.
+- Using @aws-sdk/client-s3 to interact with S3-compatible storage in Node.
 
 ## Final words
 

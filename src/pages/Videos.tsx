@@ -1,4 +1,5 @@
 import { useState, useMemo, useEffect } from 'react';
+import { useLocation } from 'react-router-dom';
 import Navbar from '../components/Navbar';
 import Footer from '../components/Footer';
 import Categories from '../components/Categories';
@@ -13,6 +14,9 @@ export default function Videos() {
   const [inputValue, setInputValue] = useState(1);
   const videosPerPage = 16;
 
+  const location = useLocation();
+
+  // --- Load videos ---
   useEffect(() => {
     fetch('/data/videos.json')
       .then(res => {
@@ -23,11 +27,24 @@ export default function Videos() {
       .catch(err => console.error('Error loading videos:', err));
   }, []);
 
+  // --- Read category from URL ---
+  useEffect(() => {
+    const params = new URLSearchParams(location.search);
+    const categoryFromUrl = params.get('category');
+    if (categoryFromUrl) {
+      setActiveCategory(categoryFromUrl);
+    } else {
+      setActiveCategory('All');
+    }
+  }, [location.search]);
+
+  // --- Categories list ---
   const allCategories = useMemo(
     () => ['All', ...Array.from(new Set(videos.map(v => v.category)))],
     [videos]
   );
 
+  // --- Filtering ---
   const filteredVideos = useMemo(() => {
     return videos.filter(v => {
       const matchesSearch =
@@ -39,6 +56,7 @@ export default function Videos() {
     });
   }, [videos, search, activeCategory]);
 
+  // --- Pagination ---
   const totalPages = Math.ceil(filteredVideos.length / videosPerPage);
   const startIndex = currentPage * videosPerPage;
   const visibleVideos = filteredVideos.slice(startIndex, startIndex + videosPerPage);
@@ -63,6 +81,7 @@ export default function Videos() {
     }
   };
 
+  // Reset page when filters change
   useEffect(() => {
     setCurrentPage(0);
     setInputValue(1);
@@ -74,10 +93,10 @@ export default function Videos() {
 
       <main className="flex-grow !pt-36 !px-6 text-white">
         <div className="sr-only">
-          Joni's video library - an amazing collection of high quality edits and reels | Joni Putkinen
+          Joni's video library - an amazing collection of high-quality edits and reels | Joni Putkinen
         </div>
         <h2 className="text-4xl font-bold gradienttext text-center !mb-8 !mt-10">
-          All Videos
+          {activeCategory === 'All' ? 'All Videos' : activeCategory}
         </h2>
 
         <div className="flex justify-center mb-8">
