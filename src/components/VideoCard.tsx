@@ -20,9 +20,14 @@ interface VideoCardProps {
 export default function VideoCard({ video }: VideoCardProps) {
   const [loading, setLoading] = useState(true);
 
+  const handleClick = () => {
+    window.scrollTo({ top: 0, behavior: 'smooth' });
+  };
+
   return (
     <Link
       to={`/videos/${video.id}`}
+      onClick={handleClick}
       className="flex flex-col rounded-lg hover:scale-105 hover:cursor-pointer transition overflow-hidden shadow-lg hover:shadow-2xl w-64 bg-gray-900"
     >
       <div className="relative w-full h-40">
@@ -44,7 +49,9 @@ export default function VideoCard({ video }: VideoCardProps) {
       <div className="!p-2">
         <h5 className="text-white !pb-3 !border-b-1 border-white">{video.title}</h5>
         <h2 className="sr-only">{video.title}</h2>
-        <p className="text-sm text-gray-400 !mt-3">{video.year} | {video.category}</p>
+        <p className="text-sm text-gray-400 !mt-3">
+          {video.year} | {video.category}
+        </p>
       </div>
     </Link>
   );

@@ -6,10 +6,12 @@ export default function About() {
   return (
     <div className="layout-wrapper">
       <Navbar />
-      <div className="customsize">About my creative journey - Joni Putkinen</div>
-      <h2 className="text-4xl font-bold gradienttext text-center !mb-8 !mt-50">
+      <h2 className="text-4xl font-bold gradienttext text-center !mb-18 !mt-50">
         About my creative journey
       </h2>
+      <div className='w-full flex justify-center'>
+        <img src='/videos/omakuva_compressed.jpg' alt='omakuva' className='w-60 h-auto rounded-full' />
+      </div>
 
       <main className="!mt-4 !px-6 text-gray-300 !mx-auto leading-relaxed">
         <section className="!mb-0 lg:max-w-[600px]">

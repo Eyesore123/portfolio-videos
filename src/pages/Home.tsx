@@ -77,7 +77,7 @@ export default function Home() {
             {activeCategory === 'All'
               ? "Here you see 4 recently made videos. Click on a category or the Videos page to explore more!"
               : categoryDescriptions[activeCategory] ||
-                "Here you see 4 random videos from this category. Visit the Videos page to see more!"}
+                "Here you see 4 videos from this category. Visit the Videos page to see more!"}
           </p>
         </div>
       </section>

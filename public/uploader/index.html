@@ -1,34 +1,174 @@
 <!DOCTYPE html>
 <html lang="en">
-    <head>
-        <meta charset="UTF-8">
-        <meta name="viewport" content="width=device-width, initial-scale=1.0">
-        <title>Upload to R2</title>
-        <style>
-            body {
-                display: flex;
-                justify-content: center;
-                align-items: center;
-                height: 100vh;
-                background-color: #f5f5f5;
-                padding: 2rem;
-                font-family: Arial, sans-serif;
-                margin: 0 auto;
-                max-width: 800px;
-            }
-        .container { max-width: 600px; margin: 0 auto; }
-            input, button { display: block; margin: 1rem 0; }
-            progress { width: 100%; }
-        </style>
-    </head>
-    <body>
-        <div class="container">
-            <h1>Video Uploader</h1>
-            <input type="file" id="fileInput" multiple accept="video/mp4" />
-            <button id="uploadBtn">Upload Selected</button>
-            <div id="status"></div>
-        </div>
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Upload to R2</title>
+  <style>
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+    body {
+      display: flex;
+      justify-content: center;
+      align-items: flex-start;
+      min-height: 100vh;
+      background: linear-gradient(135deg, #b9c425, #f381fe);
+      font-family: 'Arial', sans-serif;
+      color: #fff;
+      padding: 2rem;
+    }
 
-        <script src="./uploader.js"></script>
-    </body>
+    .container {
+      background: rgba(0, 0, 0, 0.85);
+      padding: 2rem;
+      border-radius: 16px;
+      width: 100%;
+      max-width: 700px;
+      text-align: center;
+      box-shadow: 0 8px 20px rgba(0, 0, 0, 0.3);
+    }
+
+    h1 {
+      margin-bottom: 1.5rem;
+      font-size: 2rem;
+      text-shadow: 1px 1px 4px rgba(0, 0, 0, 0.5);
+    }
+
+    input[type="file"] {
+      display: block;
+      width: 100%;
+      padding: 0.8rem;
+      border-radius: 8px;
+      border: 1px solid #555;
+      background: #222;
+      color: #fff;
+      cursor: pointer;
+      font-size: 1rem;
+    }
+
+    button {
+      margin-top: 1rem;
+      margin-left: 2px;
+      margin-right: 2px;
+      max-width: 150px;
+      padding: 0.8rem 1.5rem;
+      font-size: 1rem;
+      font-weight: bold;
+      color: #fff;
+      background-color: #6B73FF;
+      border: none;
+      border-radius: 8px;
+      cursor: pointer;
+      transition: all 0.3s ease;
+    }
+
+    button:hover {
+      background-color: #000DFF;
+      transform: scale(1.05);
+    }
+
+    section {
+      margin-top: 2rem;
+      text-align: left;
+    }
+
+    h2 {
+      margin-bottom: 1rem;
+      font-size: 1.3rem;
+      border-bottom: 1px solid rgba(255,255,255,0.2);
+      padding-bottom: 0.4rem;
+    }
+
+    .upload-item, .file-item {
+      background: rgba(255,255,255,0.1);
+      margin-bottom: 0.8rem;
+      padding: 0.6rem 0.8rem;
+      border-radius: 8px;
+      display: flex;
+      flex-direction: column;
+      gap: 0.4rem;
+      transition: background 0.3s;
+    }
+
+    .file-item:hover {
+      background: rgba(255,255,255,0.15);
+    }
+
+    .upload-item strong, .file-item strong {
+      font-size: 0.95rem;
+      word-break: break-word;
+    }
+
+    .file-info {
+      font-size: 0.9rem;
+      color: #ccc;
+    }
+
+    .file-actions {
+      display: flex;
+      gap: 0.5rem;
+      margin-top: 0.4rem;
+    }
+
+    .file-actions button, .file-actions a button {
+      flex: 1;
+      font-size: 0.9rem;
+      padding: 0.5rem;
+      border-radius: 6px;
+    }
+
+    .file-actions button.delete {
+      background-color: #FF4B4B;
+    }
+
+    .file-actions button.delete:hover {
+      background-color: #D40000;
+    }
+
+    progress {
+      width: 100%;
+      height: 10px;
+      border-radius: 5px;
+      overflow: hidden;
+      appearance: none;
+    }
+
+    progress::-webkit-progress-bar {
+      background-color: #333;
+    }
+
+    progress::-webkit-progress-value {
+      background-color: #6B73FF;
+      transition: width 0.3s;
+    }
+
+    progress::-moz-progress-bar {
+      background-color: #6B73FF;
+    }
+
+    .dots {
+      font-size: 0.9rem;
+      color: #ddd;
+    }
+
+  </style>
+</head>
+<body>
+  <div class="container">
+    <h1>R2 File Uploader</h1>
+
+    <section>
+      <h2>Upload Files</h2>
+      <input type="file" id="fileInput" multiple accept=".mp4,.png"/>
+      <button id="uploadBtn">Upload Selected</button>
+      <div id="status"></div>
+    </section>
+
+    <section>
+      <h2>Stored Files</h2>
+      <div id="fileList">Loading...</div>
+    </section>
+  </div>
+
+  <script src="./uploader.js"></script>
+</body>
 </html>
