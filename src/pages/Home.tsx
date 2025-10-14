@@ -4,12 +4,16 @@ import Hero from '../components/Hero';
 import Categories from '../components/Categories';
 import VideoCarousel from '../components/VideoCarousel';
 import Footer from '../components/Footer';
+import { useLocation } from 'react-router-dom';
 import '../index.css';
 
 export default function Home() {
   const [videos, setVideos] = useState<any[]>([]);
   const [activeCategory, setActiveCategory] = useState('All');
   const [allCategories, setAllCategories] = useState<string[]>(['All']);
+
+  const query = useQuery();
+  const location = useLocation();
 
   useEffect(() => {
     fetch('/data/videos.json')
@@ -22,9 +26,23 @@ export default function Home() {
         const uniqueCategories = Array.from(new Set(data.map((v: any) => v.category) as string[]));
         setAllCategories(['All', ...uniqueCategories]);
       })
-
       .catch(err => console.error('Error loading videos:', err));
   }, []);
+
+  // ✅ Detect category in URL and update activeCategory
+  useEffect(() => {
+    const categoryFromUrl = query.get('category');
+    if (categoryFromUrl) {
+      setActiveCategory(categoryFromUrl);
+    } else {
+      setActiveCategory('All');
+    }
+  }, [location.search]);
+
+
+  function useQuery() {
+  return new URLSearchParams(useLocation().search);
+}
 
   const categoryDescriptions: Record<string, string> = {
     "Anime + Music": "Fast-paced anime edits with energetic beats and stylish motion.",
