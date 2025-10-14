@@ -12,11 +12,14 @@ lerna-debug.log*
 public/videos/
 videos-merged.json
 update-report.txt
+wrangler.toml
 
 node_modules
 dist
 dist-ssr
 *.local
+
+.env
 
 # Editor directories and files
 .vscode/*

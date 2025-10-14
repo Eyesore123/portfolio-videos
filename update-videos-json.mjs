@@ -2,7 +2,7 @@ import fs from "fs/promises";
 import path from "path";
 
 const videosFolder = "./public/videos";
-const dataFile = "./src/data/videos.json";
+const dataFile = "./public/data/videos.json";
 const reportFile = "./update-report.txt";
 const mergedOutputFile = "./videos-merged.json";
 
