@@ -15,7 +15,7 @@ I plan to use GSAP for animations, but keep other styles as close to my portfoli
 ### `update-videos-json.mjs`
 
 - update-videos-json.mjs file is used to check the videos and thumbnails that are stored inside the public folder to see if they match with the json data.
-- It outputs the report 'update-report.txt' and gives a new file called 'videos-merged.json', which can be used to paste the new values of new videos into the videos.json. Reduces manual work, but doesn't remove it as the video desciptions etc. still
+- It outputs the report 'update-report.txt' and gives a new file called 'videos-merged.json', which can be used to paste the new values of new videos into the videos.json. Reduces manual work, but doesn't remove it as the video descriptions etc. still
 need to be typed manually
 
 - Used only in local testing and development.
@@ -40,8 +40,27 @@ node update-videos-json.mjs
 
 node upload.js [filename]
 
-for example, if you want to upload video.mp4 form videos folder, you type 'node upload.js video.mp4'
+for example, if you want to upload video.mp4 from videos folder, you type 'node upload.js video.mp4'
 
 Landing page image:
 
 <img width="1229" height="874" alt="videosite" src="https://github.com/user-attachments/assets/623bec3f-da96-4685-93df-5642e3dfb142" />
+
+
+## What I’ve learned
+
+How to use Cloudflare R2 for large file storage and configure access credentials.
+
+Implementing custom headers and authorization secrets for secure uploads.
+
+Managing large video files (over 500 MB) efficiently using R2.
+
+Writing Node.js scripts to automate uploads and JSON updates.
+
+Using @aws-sdk/client-s3 to interact with S3-compatible storage in Node.
+
+## Final words
+
+I'm planning to implement a better UI in the future, which would allow selecting and uploading multiple files without needing to edit the script.
+
+This project has been a great exercise in combining frontend development with cloud storage solutions, handling file streaming, and planning for future user interfaces.
