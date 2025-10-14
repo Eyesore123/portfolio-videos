@@ -13,6 +13,7 @@ public/videos/
 videos-merged.json
 update-report.txt
 wrangler.toml
+.wrangler*
 
 node_modules
 dist
