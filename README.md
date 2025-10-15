@@ -119,7 +119,16 @@ Landing page image:
 
 <img width="1229" height="874" alt="videosite" src="https://github.com/user-attachments/assets/623bec3f-da96-4685-93df-5642e3dfb142" />
 
-## Future improvements
+Uploader UI image:
+
+<img width="1616" height="839" alt="UI_fileuploader-min" src="https://github.com/user-attachments/assets/ca459b52-7664-4ef4-9551-b5016ddb0521" />
+
+Video player view:
+
+<img width="1385" height="810" alt="videoplayerview-min" src="https://github.com/user-attachments/assets/4c25613a-82a4-4022-aca5-c262d14f974f" />
+
+
+## Planned future improvements
 
 - File search bar for uploader UI
 - More animations (GSAP etc.)
