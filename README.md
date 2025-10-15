@@ -121,7 +121,7 @@ Landing page image:
 
 ## Future improvements
 
-- Drag and drop for uploader UI
+- File search bar for uploader UI
 - More animations (GSAP etc.)
 - Video suggestion after video has ended.
 - Improved SEO and meta tags
