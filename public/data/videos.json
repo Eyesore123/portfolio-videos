@@ -557,5 +557,31 @@
     "contributors": "",
     "music": "",
     "contributorLink": ""
+  },
+  {
+    "id": "44",
+    "title": "Finnish Humor Short 28",
+    "year": 2024,
+    "program": "Adobe Premiere Pro",
+    "category": "Humor",
+    "thumbnail": "https://pub-f60332726ddd486896f9169e279d5c49.r2.dev/short28-min.png",
+    "src": "https://pub-f60332726ddd486896f9169e279d5c49.r2.dev/short28.mp4",
+    "description": "Humor edit: series of old shorts from my Finnish humor channel (Youtube).",
+    "contributors": "",
+    "music": "",
+    "contributorLink": ""
+  },
+  {
+    "id": "45",
+    "title": "Finnish Humor Short 29",
+    "year": 2024,
+    "program": "Adobe Premiere Pro",
+    "category": "Humor",
+    "thumbnail": "https://pub-f60332726ddd486896f9169e279d5c49.r2.dev/short29-min.png",
+    "src": "https://pub-f60332726ddd486896f9169e279d5c49.r2.dev/short29.mp4",
+    "description": "Humor edit: series of old shorts from my Finnish humor channel (Youtube).",
+    "contributors": "",
+    "music": "",
+    "contributorLink": ""
   }
 ]

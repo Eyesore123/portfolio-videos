@@ -10,7 +10,7 @@ export default function About() {
         About my creative journey
       </h2>
       <div className='w-full flex justify-center'>
-        <img src='/videos/omakuva_compressed.jpg' alt='omakuva' className='w-60 h-auto rounded-full' />
+        <img src='/omakuva_compressed.jpg' alt='omakuva' className='w-60 h-auto rounded-full' />
       </div>
 
       <main className="!mt-4 !px-6 text-gray-300 !mx-auto leading-relaxed">
