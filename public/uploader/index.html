@@ -33,6 +33,22 @@
       text-shadow: 1px 1px 4px rgba(0, 0, 0, 0.5);
     }
 
+    #dropZone {
+      border: 2px dashed #6B73FF;
+      border-radius: 10px;
+      padding: 2rem;
+      margin-bottom: 1rem;
+      transition: background 0.3s, border-color 0.3s, transform 0.2s;
+      cursor: pointer;
+      background: rgba(255,255,255,0.05);
+    }
+
+    #dropZone.hover {
+      background: rgba(107, 115, 255, 0.15);
+      border-color: #fff;
+      transform: scale(1.02);
+    }
+
     input[type="file"] {
       display: block;
       width: 100%;
@@ -150,6 +166,11 @@
       color: #ddd;
     }
 
+    .uploadingmessage {
+      margin-top: 10px;
+      margin-bottom: 10px;
+    }
+
   </style>
 </head>
 <body>
@@ -158,8 +179,12 @@
 
     <section>
       <h2>Upload Files</h2>
+
+      <div id="dropZone">Drag & Drop files here</div>
+
       <input type="file" id="fileInput" multiple accept=".mp4,.png"/>
       <button id="uploadBtn">Upload Selected</button>
+
       <div id="status"></div>
     </section>
 

@@ -2,71 +2,47 @@ const fileInput = document.getElementById('fileInput');
 const uploadBtn = document.getElementById('uploadBtn');
 const status = document.getElementById('status');
 const fileList = document.getElementById('fileList');
+const dropZone = document.getElementById('dropZone');
 
 const BASE_URL = 'http://localhost:3000/uploader';
 
-// Helper: human-readable file size
-function formatSize(bytes) {
-  const units = ['B', 'KB', 'MB', 'GB'];
-  let i = 0;
-  while (bytes >= 1024 && i < units.length - 1) {
-    bytes /= 1024;
-    i++;
-  }
-  return `${bytes.toFixed(1)} ${units[i]}`;
-}
-
-// Load existing files
+// --- Load existing files ---
 async function loadFiles() {
-  try {
-    const res = await fetch(`${BASE_URL}/files`);
-    if (!res.ok) throw new Error('Failed to fetch files');
-    const files = await res.json();
-    fileList.innerHTML = '';
+  const res = await fetch(`${BASE_URL}/files`);
+  const files = await res.json();
+  fileList.innerHTML = '';
 
-    if (files.length === 0) {
-      fileList.innerHTML = '<p>No files stored yet.</p>';
-      return;
-    }
-
-    files.forEach(file => {
-      const div = document.createElement('div');
-      div.className = 'file-item';
-      const url = `${BASE_URL}/download?key=${encodeURIComponent(file.key)}`;
-
-      div.innerHTML = `
-        <strong>${file.key}</strong>
-        <span class="file-info">${formatSize(file.size)} — Last modified: ${new Date(file.lastModified).toLocaleString()}</span>
-        <div class="file-actions">
-          <a href="${url}" target="_blank"><button>View / Download</button></a>
-          <button class="delete deleteBtn">Delete</button>
-        </div>
-      `;
-
-      div.querySelector('.deleteBtn').addEventListener('click', async () => {
-        if (!confirm(`Are you sure you want to delete "${file.key}"?`)) return;
-        const res = await fetch(`${BASE_URL}/files`, {
-          method: 'DELETE',
-          headers: { 'Content-Type': 'application/json' },
-          body: JSON.stringify({ key: file.key })
-        });
-        alert(await res.text());
-        setTimeout(loadFiles, 600);
+  files.forEach(file => {
+    const div = document.createElement('div');
+    div.className = 'upload-item';
+    const url = `${BASE_URL}/download?key=${file.key}`;
+    div.innerHTML = `
+      <strong>${file.key}</strong>
+      <span>${(file.size/1024).toFixed(1)} KB | Last Modified: ${new Date(file.lastModified).toLocaleString()}</span>
+      <div style="display:flex; gap:0.5rem; flex-wrap:wrap;">
+        <a href="${url}" target="_blank"><button>View/Download</button></a>
+        <button class="deleteBtn">Delete</button>
+      </div>
+    `;
+    div.querySelector('.deleteBtn').addEventListener('click', async () => {
+      if (!confirm(`Delete ${file.key}?`)) return;
+      const res = await fetch(`${BASE_URL}/files`, {
+        method: 'DELETE',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ key: file.key })
       });
-
-      fileList.appendChild(div);
+      alert(await res.text());
+      loadFiles();
     });
-  } catch (err) {
-    console.error(err);
-    fileList.innerHTML = '<p>Error loading files.</p>';
-  }
+    fileList.appendChild(div);
+  });
 }
 
-// Upload files
-uploadBtn.addEventListener('click', async () => {
-  const files = fileInput.files;
-  if (!files.length) return alert('Please select files.');
-  status.innerHTML = '';
+// --- Sequential upload with batch status ---
+async function uploadFilesSequentially(files) {
+  if (!files.length) return;
+
+  status.innerHTML = `<p class="uploadingmessage">Uploading ${files.length} file(s)...</p>`;
 
   for (const file of files) {
     const div = document.createElement('div');
@@ -80,39 +56,60 @@ uploadBtn.addEventListener('click', async () => {
     const formData = new FormData();
     formData.append('file', file);
 
-    const xhr = new XMLHttpRequest();
-    xhr.open('POST', `${BASE_URL}/upload`);
+    await new Promise((resolve) => {
+      const xhr = new XMLHttpRequest();
+      xhr.open('POST', `${BASE_URL}/upload`);
 
-    let dotCount = 0;
-    const interval = setInterval(() => {
-      dots.textContent = 'Uploading' + '.'.repeat(dotCount % 4);
-      dotCount++;
-    }, 400);
+      let dotCount = 0;
+      const interval = setInterval(() => {
+        dots.textContent = 'Uploading' + '.'.repeat(dotCount % 4);
+        dotCount++;
+      }, 400);
 
-    xhr.upload.addEventListener('progress', (e) => {
-      if (e.lengthComputable) {
-        progressBar.value = Math.round((e.loaded / e.total) * 100);
-      }
+      xhr.upload.addEventListener('progress', (e) => {
+        if (e.lengthComputable) progressBar.value = Math.round((e.loaded / e.total) * 100);
+      });
+
+      xhr.onload = async () => {
+        clearInterval(interval);
+        if (xhr.status === 200) dots.textContent = '✅ Uploaded';
+        else dots.textContent = '❌ Failed';
+        resolve();
+      };
+
+      xhr.onerror = () => {
+        clearInterval(interval);
+        dots.textContent = '❌ Error';
+        resolve();
+      };
+
+      xhr.send(formData);
     });
-
-    xhr.onload = () => {
-      clearInterval(interval);
-      if (xhr.status === 200) {
-        dots.textContent = '✅ Uploaded';
-      } else {
-        dots.textContent = '❌ Failed';
-      }
-      setTimeout(loadFiles, 600);
-    };
-
-    xhr.onerror = () => {
-      clearInterval(interval);
-      dots.textContent = '❌ Error';
-    };
-
-    xhr.send(formData);
   }
+
+  loadFiles();
+}
+
+// --- Upload button ---
+uploadBtn.addEventListener('click', () => {
+  uploadFilesSequentially([...fileInput.files]);
 });
 
-// Initial load
+// --- Drag & drop ---
+dropZone.addEventListener('dragover', e => {
+  e.preventDefault();
+  dropZone.classList.add('hover');
+});
+dropZone.addEventListener('dragleave', e => {
+  e.preventDefault();
+  dropZone.classList.remove('hover');
+});
+dropZone.addEventListener('drop', e => {
+  e.preventDefault();
+  dropZone.classList.remove('hover');
+  const files = [...e.dataTransfer.files];
+  uploadFilesSequentially(files);
+});
+
+// --- Initial load ---
 loadFiles();
