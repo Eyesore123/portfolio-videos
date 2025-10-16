@@ -1,16 +1,33 @@
+import { useState } from 'react';
 import Navbar from '../components/Navbar';
 import Footer from '../components/Footer';
+import Spinner from '../components/Spinner';
 import '../index.css';
 
 export default function About() {
+  const [loading, setLoading] = useState(true);
+
   return (
     <div className="layout-wrapper">
       <Navbar />
       <h2 className="text-4xl font-bold gradienttext text-center !mb-18 !mt-50">
         About my creative journey
       </h2>
-      <div className='w-full flex justify-center'>
-        <img src='/omakuva_compressed.jpg' alt='omakuva' className='w-60 h-auto rounded-full' />
+
+      {/* Image wrapper with loader */}
+      <div className="w-full flex justify-center relative !mt-4">
+        {loading && (
+          <div className="absolute inset-0 flex items-center justify-center bg-transparent z-10">
+            <Spinner size={48} />
+          </div>
+        )}
+        <img
+          src="/omakuva_compressed.jpg"
+          alt="omakuva"
+          className={`w-60 h-auto rounded-full transition-opacity duration-300 ${loading ? 'opacity-0' : 'opacity-100'}`}
+          onLoad={() => setLoading(false)}
+          onError={() => setLoading(false)}
+        />
       </div>
 
       <main className="!mt-4 !px-6 text-gray-300 !mx-auto leading-relaxed">
@@ -53,7 +70,7 @@ export default function About() {
 
           <div className="flex justify-center gap-6 !mt-6">
             <a
-              href="https://joniputkinen.com" 
+              href="https://joniputkinen.com"
               className="text-purple-400 hover:text-white transition-colors font-semibold underline-offset-4 hover:underline"
             >
               🎬 View my portfolio
