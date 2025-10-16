@@ -4,6 +4,7 @@ import Home from './pages/Home';
 import Videos from './pages/Videos';
 import VideoDetailsPage from './pages/VideoDetailsPage';
 import About from './pages/About';
+import Info from './pages/Info';
 
 function App() {
 
@@ -13,6 +14,7 @@ function App() {
       <Route path="/videos" element={<Videos />} />
       <Route path="/videos/:id" element={<VideoDetailsPage />}  />
       <Route path="/about" element={<About />} />
+      <Route path ="/info" element={<Info />} />
     </Routes>
   )
 }

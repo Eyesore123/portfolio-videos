@@ -94,6 +94,16 @@ svg {
     font-weight: 600;
     text-align: center;
   }
+
+  /* Responsive for mobile */
+  @media (max-width: 768px) {
+    h4 {
+      font-size: var(--fs-p);
+      font-weight: 600;
+      text-align: center;
+    }
+  }
+
   h5 {
     font-size: var(--fs-h5);
     font-weight: 900;
