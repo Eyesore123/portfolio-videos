@@ -8,7 +8,7 @@ interface CategoriesProps {
 
 export default function Categories({ categories, activeCategory, onSelect }: CategoriesProps) {
   return (
-    <section className="relative flex justify-center items-center w-full !mt-12">
+    <div className="!mb-6 lg:!mb-0 relative flex justify-center items-center w-full !mt-6">
       {/* Container that defines blur size */}
       <div className="relative flex flex-wrap justify-center items-center !gap-2 !px-2 !pb-5 !pt-1 z-10 max-w-fit">
         {/* Blur background matching button area */}
@@ -31,6 +31,6 @@ export default function Categories({ categories, activeCategory, onSelect }: Cat
           ))}
         </div>
       </div>
-    </section>
+    </div>
   );
 }

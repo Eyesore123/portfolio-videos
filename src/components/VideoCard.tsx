@@ -47,7 +47,7 @@ export default function VideoCard({ video }: VideoCardProps) {
       </div>
 
       <div className="!p-2">
-        <h5 className="text-white !pb-3 !border-b-1 border-white">{video.title}</h5>
+        <h5 className="text-white !pb-8 !border-b-1 border-white">{video.title}</h5>
         <h2 className="sr-only">{video.title}</h2>
         <p className="text-sm text-gray-400 !mt-3">
           {video.year} | {video.category}
