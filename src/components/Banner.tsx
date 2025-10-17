@@ -86,9 +86,9 @@ export default function Banner() {
 
       const glitch = gsap.timeline({ repeat: 6, yoyo: true });
       glitch
-        .to(neonRef.current, { x: 5, y: -2, skewX: 5, textShadow: '2px 2px 10px #0ff, -2px -2px 10px #0ff', duration: 0.2 })
-        .to(neonRef.current, { x: -5, y: 2, skewX: -5, textShadow: '-2px 2px 10px #0ff, 2px -2px 10px #0ff', duration: 0.2 })
-        .to(neonRef.current, { x: 0, y: 0, skewX: 0, textShadow: '0 0 20px #0ff, 0 0 30px #0ff, 0 0 40px #0ff', duration: 0.4 });
+        .to(neonRef.current, { x: 5, y: -2, skewX: 5, textShadow: '2px 2px 10px #E900FF, -2px -2px 10px #E900FF', duration: 0.2 })
+        .to(neonRef.current, { x: -5, y: 2, skewX: -5, textShadow: '-2px 2px 10px #E900FF, 2px -2px 10px #E900FF', duration: 0.2 })
+        .to(neonRef.current, { x: 0, y: 0, skewX: 0, textShadow: '0 0 20px #E900FF, 0 0 30px #E900FF, 0 0 40px #E900FF', duration: 0.4 });
       tl.add(glitch, '+=0.2');
 
       tl.to(neonChars, {
@@ -184,9 +184,9 @@ export default function Banner() {
           fontSize: '2rem',
           fontWeight: 900,
           fontFamily: '"Poppins", sans-serif',
-          color: '#0ff',
+          color: '#E900FF',
           letterSpacing: '2px',
-          textShadow: '0 0 10px #0ff, 0 0 20px #0ff, 0 0 30px #0ff',
+          textShadow: '0 0 10px #E900FF, 0 0 20px #E900FF, 0 0 30px #E900FF',
           perspective: '800px',
           transformStyle: 'preserve-3d',
           whiteSpace: 'normal',
