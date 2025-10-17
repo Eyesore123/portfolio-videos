@@ -160,7 +160,8 @@ export default function Banner() {
     };
     runSequence();
 
-    return () => gsap.globalTimeline.clear();
+    return () => { gsap.globalTimeline.clear();
+    };
   }, []);
 
   return (
