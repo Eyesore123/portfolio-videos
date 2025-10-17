@@ -15,7 +15,7 @@ export default function About() {
       </h2>
 
       {/* Image wrapper with loader */}
-      <div className="w-full flex justify-center relative !mt-4">
+      <div className="w-full flex justify-center relative !mt-4 min-h-[240px]">
         {loading && (
           <div className="absolute inset-0 flex items-center justify-center bg-transparent z-10">
             <Spinner size={48} />

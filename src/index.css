@@ -1213,3 +1213,14 @@ input:focus::placeholder, textarea:focus::placeholder {
     height: 1600px !important; /* This will make the height of the element 1600px for 4K screens */
   }
 }
+
+.line-break {
+  display: none;
+}
+
+@media (max-width: 600px) {
+  .line-break {
+    display: block;
+    height: 0; /* acts like a <br> */
+  }
+}

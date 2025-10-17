@@ -4,6 +4,7 @@ import Hero from '../components/Hero';
 import Categories from '../components/Categories';
 import VideoCarousel from '../components/VideoCarousel';
 import Footer from '../components/Footer';
+import Banner from '../components/Banner';
 import '../index.css';
 
 export default function Home() {
@@ -63,6 +64,8 @@ export default function Home() {
         title="Joni's video library"
         subtitle="Explore amazing videos, video editing projects, reels and experiments!"
       />
+
+      <Banner />
 
       <Categories
         categories={allCategories}
