@@ -30,8 +30,8 @@ export default function About() {
         />
       </div>
 
-      <main className="!mt-4 !px-6 text-gray-300 !mx-auto leading-relaxed">
-        <section className="!mb-0 lg:max-w-[600px]">
+      <main className="!mt-4 text-gray-300 !mx-auto leading-relaxed">
+        <section className="!mb-0 !px-2 lg:max-w-[600px]">
           <h4 className="text-3xl font-bold gradienttext !mb-2">Video editing</h4>
           <p className="!mb-4 !mt-4 text-center">
             My video editing journey started with curiosity. I wondered how far I could push my video editing skills without formal training.
@@ -45,7 +45,7 @@ export default function About() {
           </p>
         </section>
 
-        <section className="!mb-0 lg:max-w-[600px]">
+        <section className="!mb-0 !px-2 lg:max-w-[600px]">
           <h4 className="text-3xl font-bold gradienttext !mb-2">Web development meets creativity</h4>
           <p className="!mb-4 !mt-4 text-center">
             While improving my video editing, I realized how web development can amplify creativity.
@@ -58,7 +58,7 @@ export default function About() {
           </p>
         </section>
 
-        <section className="!mb-0 lg:max-w-[600px]">
+        <section className="!mb-0 !px-2 lg:max-w-[600px]">
           <h4 className="text-3xl font-bold gradienttext !mb-2">My portfolio site</h4>
           <p className="!mb-4 !mt-4 text-center">
             This site is a continuous experiment. It's built with{' '}
