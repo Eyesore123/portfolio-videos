@@ -21,6 +21,7 @@ export default function VideoCard({ video }: VideoCardProps) {
   const [loading, setLoading] = useState(true);
 
   const handleClick = () => {
+    event?.preventDefault();
     window.scrollTo({ top: 0, behavior: 'smooth' });
   };
 

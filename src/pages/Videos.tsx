@@ -1,5 +1,5 @@
 import { useState, useMemo, useEffect } from 'react';
-import { useLocation } from 'react-router-dom';
+import { useLocation, useNavigate } from 'react-router-dom';
 import Navbar from '../components/Navbar';
 import Footer from '../components/Footer';
 import Categories from '../components/Categories';
@@ -15,6 +15,7 @@ export default function Videos() {
   const videosPerPage = 16;
 
   const location = useLocation();
+  const navigate = useNavigate();
 
   // --- Load videos ---
   useEffect(() => {
@@ -27,16 +28,34 @@ export default function Videos() {
       .catch(err => console.error('Error loading videos:', err));
   }, []);
 
-  // --- Read category from URL ---
+  // --- Read category and page from URL ---
   useEffect(() => {
     const params = new URLSearchParams(location.search);
     const categoryFromUrl = params.get('category');
+    const pageFromUrl = parseInt(params.get('page') || '1', 10);
+
     if (categoryFromUrl) {
       setActiveCategory(categoryFromUrl);
     } else {
       setActiveCategory('All');
     }
+
+    if (!isNaN(pageFromUrl) && pageFromUrl > 0) {
+      setCurrentPage(pageFromUrl - 1);
+      setInputValue(pageFromUrl);
+    } else {
+      setCurrentPage(0);
+      setInputValue(1);
+    }
   }, [location.search]);
+
+  // --- Scroll to top when page changes ---
+  useEffect(() => {
+    // Wait for DOM update before scrolling
+    setTimeout(() => {
+      window.scrollTo({ top: 0, behavior: 'smooth' });
+    }, 0);
+  }, [currentPage]);
 
   // --- Categories list ---
   const allCategories = useMemo(
@@ -62,11 +81,18 @@ export default function Videos() {
   const visibleVideos = filteredVideos.slice(startIndex, startIndex + videosPerPage);
   const hasMore = currentPage < totalPages - 1;
 
+  const updateUrl = (category: string, page: number) => {
+    const params = new URLSearchParams();
+    if (category !== 'All') params.set('category', category);
+    if (page > 1) params.set('page', page.toString());
+    navigate(`?${params.toString()}`, { replace: false });
+  };
+
   const handlePageChange = (page: number) => {
     if (page < 0 || page >= totalPages) return;
-    window.scrollTo({ top: 0, behavior: 'smooth' });
     setCurrentPage(page);
     setInputValue(page + 1);
+    updateUrl(activeCategory, page + 1);
   };
 
   const handleFirstPage = () => handlePageChange(0);
@@ -81,10 +107,12 @@ export default function Videos() {
     }
   };
 
-  // Reset page when filters change
+  // Reset to first page when filters change
   useEffect(() => {
     setCurrentPage(0);
     setInputValue(1);
+    updateUrl(activeCategory, 1);
+    window.scrollTo({ top: 0, behavior: 'smooth' });
   }, [search, activeCategory]);
 
   return (
