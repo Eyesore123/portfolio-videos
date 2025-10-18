@@ -115,7 +115,7 @@ export default function Videos() {
           onSelect={setActiveCategory}
         />
 
-        <div>
+        <div className="flex flex-col items-center lg:!mt-4">
           {filteredVideos.length > 0 ? (
             <>
               <VideoGrid videos={visibleVideos} />

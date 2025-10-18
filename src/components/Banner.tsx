@@ -181,7 +181,7 @@ export default function Banner() {
       <div
         ref={neonRef}
         style={{
-          fontSize: '2rem',
+          fontSize: '1.5rem',
           fontWeight: 900,
           fontFamily: '"Poppins", sans-serif',
           color: '#E900FF',
@@ -196,7 +196,7 @@ export default function Banner() {
       <div
         ref={royalRef}
         style={{
-          fontSize: '2rem',
+          fontSize: '1.5rem',
           fontWeight: 900,
           fontFamily: 'var(--font-poppins)',
           letterSpacing: '2px',

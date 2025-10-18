@@ -10,7 +10,7 @@ export default function About() {
   return (
     <div className="layout-wrapper">
       <Navbar />
-      <h2 className="text-4xl font-bold gradienttext text-center !mb-18 !mt-50">
+      <h2 className="text-4xl font-bold gradienttext text-center !mb-18 !mt-46">
         About my creative journey
       </h2>
 
