@@ -76,7 +76,7 @@ export default function Home() {
       <section className="!mt-0">
         <VideoCarousel videos={filteredVideos} />
         <div className="!mt-0 !mb-4 flex justify-center items-center gap-2 w-full">
-          <p className="w-full text-center text-gray-400 !mt-4 !mb-4 max-w-2xl mx-auto">
+          <p className="w-full text-center text-gray-400 !mt-4 !mb-4 !px-8 lg:!px-0 max-w-2xl mx-auto">
             {activeCategory === 'All'
               ? "Here you see 4 recently made videos. Click on a category or the Videos page to explore more!"
               : categoryDescriptions[activeCategory] ||

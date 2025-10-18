@@ -80,6 +80,7 @@ export default function VideoDetailsPage() {
           <h3 className="text-xl font-semibold text-gray-200 !mb-4">
             Explore more categories
           </h3>
+          
           <div className="flex flex-wrap justify-center !gap-3 !mb-10">
             {otherCategories.map(cat => (
               <Link
