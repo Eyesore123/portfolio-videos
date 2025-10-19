@@ -9,7 +9,7 @@ export default function Banner() {
   useEffect(() => {
     if (!neonRef.current || !royalRef.current) return;
 
-    const text = 'Faster than PooTube...';
+    const text = 'Fast streaming!';
 
     // --- Helper: wrap text in spans ---
     const wrapText = (el: HTMLDivElement) => {

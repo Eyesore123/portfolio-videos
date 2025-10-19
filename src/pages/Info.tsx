@@ -31,6 +31,12 @@ export default function About() {
             </a>
           </div>
         </section>
+        <section className="lg:!mb-10 lg:max-w-[600px]">
+           <h4 className="text-3xl font-bold gradienttext !mb-2">Videos</h4>
+          <p className="!mb-4 !mt-4 text-center">
+            A lot of the video material originates from TikTok or Youtube. Humor videos made in 2024 were posted on channel called Finnish humor channel (@Finnishhumor) and personal diaries on a channel called Branching Business (@branching_business).
+          </p>
+        </section>
 
       </main>
 

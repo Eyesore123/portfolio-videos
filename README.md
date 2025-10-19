@@ -131,8 +131,6 @@ Video player view:
 ## Planned future improvements
 
 - File search bar for uploader UI
-- Add a separate info page
-- More animations (GSAP etc.)
 - Video suggestion after video has ended.
 - Improved SEO and meta tags
 . Sitemaps
