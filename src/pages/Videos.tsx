@@ -1,5 +1,6 @@
 import { useState, useMemo, useEffect } from 'react';
 import { useLocation, useNavigate } from 'react-router-dom';
+import { Helmet } from 'react-helmet-async';
 import Navbar from '../components/Navbar';
 import Footer from '../components/Footer';
 import Categories from '../components/Categories';
@@ -34,24 +35,13 @@ export default function Videos() {
     const categoryFromUrl = params.get('category');
     const pageFromUrl = parseInt(params.get('page') || '1', 10);
 
-    if (categoryFromUrl) {
-      setActiveCategory(categoryFromUrl);
-    } else {
-      setActiveCategory('All');
-    }
-
-    if (!isNaN(pageFromUrl) && pageFromUrl > 0) {
-      setCurrentPage(pageFromUrl - 1);
-      setInputValue(pageFromUrl);
-    } else {
-      setCurrentPage(0);
-      setInputValue(1);
-    }
+    setActiveCategory(categoryFromUrl || 'All');
+    setCurrentPage(!isNaN(pageFromUrl) && pageFromUrl > 0 ? pageFromUrl - 1 : 0);
+    setInputValue(!isNaN(pageFromUrl) && pageFromUrl > 0 ? pageFromUrl : 1);
   }, [location.search]);
 
   // --- Scroll to top when page changes ---
   useEffect(() => {
-    // Wait for DOM update before scrolling
     setTimeout(() => {
       window.scrollTo({ top: 0, behavior: 'smooth' });
     }, 0);
@@ -115,9 +105,39 @@ export default function Videos() {
     window.scrollTo({ top: 0, behavior: 'smooth' });
   }, [search, activeCategory]);
 
+  // --- Dynamic SEO title/description ---
+  const pageTitle =
+    activeCategory === 'All'
+      ? "All Videos | Joni Putkinen"
+      : `${activeCategory} Videos | Joni Putkinen`;
+
+  const pageDescription =
+    visibleVideos.length > 0
+      ? `Browse ${visibleVideos.length} video${visibleVideos.length > 1 ? 's' : ''} in the ${
+          activeCategory === 'All' ? 'library' : activeCategory
+        } category.`
+      : 'No videos found matching your filters.';
+
+  // --- JSON-LD structured data for visible videos ---
+  const jsonLd = visibleVideos.map(video => ({
+    "@context": "https://schema.org",
+    "@type": "VideoObject",
+    name: video.title,
+    description: video.description,
+    thumbnailUrl: [video.thumbnail],
+    uploadDate: video.uploadDate,
+    contentUrl: `https://videos.joniputkinen.com/videos/${video.id}`
+  }));
+
   return (
     <div className="layout-wrapper min-h-screen flex flex-col">
       <Navbar />
+
+      <Helmet>
+        <title>{pageTitle}</title>
+        <meta name="description" content={pageDescription} />
+        <script type="application/ld+json">{JSON.stringify(jsonLd)}</script>
+      </Helmet>
 
       <main className="flex-grow !pt-36 !px-6 text-white">
         <div className="sr-only">

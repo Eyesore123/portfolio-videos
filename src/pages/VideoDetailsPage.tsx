@@ -1,5 +1,6 @@
 import { useParams, Link } from 'react-router-dom';
 import { useEffect, useState } from 'react';
+import { Helmet } from 'react-helmet-async';
 import '../index.css';
 import Navbar from '../components/Navbar';
 import Footer from '../components/Footer';
@@ -11,15 +12,26 @@ export default function VideoDetailsPage() {
   const [videos, setVideos] = useState<any[]>([]);
   const [loading, setLoading] = useState(true);
 
+  // --- Load videos on mount ---
   useEffect(() => {
+    let isMounted = true;
+
     fetch('/data/videos.json')
       .then(res => {
         if (!res.ok) throw new Error('Failed to fetch videos');
         return res.json();
       })
-      .then(data => setVideos(data))
+      .then(data => {
+        if (isMounted) setVideos(data);
+      })
       .catch(err => console.error(err))
-      .finally(() => setLoading(false));
+      .finally(() => {
+        if (isMounted) setLoading(false);
+      });
+
+    return () => {
+      isMounted = false;
+    };
   }, []);
 
   if (loading) {
@@ -64,7 +76,27 @@ export default function VideoDetailsPage() {
   return (
     <div className="layout-wrapper">
       <Navbar />
+
       <main className="flex flex-col flex-grow items-center !px-4">
+        {/* SEO with react-helmet-async */}
+        <Helmet>
+          <title>{currentVideo.title} | Joni Putkinen</title>
+          <meta name="description" content={currentVideo.description} />
+
+          {/* Open Graph */}
+          <meta property="og:title" content={currentVideo.title} />
+          <meta property="og:description" content={currentVideo.description} />
+          <meta property="og:type" content="video.other" />
+          <meta property="og:url" content={`https://videos.joniputkinen.com/videos/${currentVideo.id}`} />
+          <meta property="og:image" content={currentVideo.thumbnail} />
+
+          {/* Twitter Card */}
+          <meta name="twitter:card" content="summary_large_image" />
+          <meta name="twitter:title" content={currentVideo.title} />
+          <meta name="twitter:description" content={currentVideo.description} />
+          <meta name="twitter:image" content={currentVideo.thumbnail} />
+        </Helmet>
+
         <VideoPlayer video={currentVideo} />
 
         {sameCategoryVideos.length > 0 && (

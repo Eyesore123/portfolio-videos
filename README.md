@@ -2,8 +2,6 @@
 
 This is my personal video library which is used under my domain.
 
-I just wanted to see what it's like to create a video library.
-
 I use React and TypeScript and Node.js in this project.
 
 I'm not sure if I'll add a separate backend to go with the frontend, but for now I'm just building the frontend and node scripts to handle the file uploads to Cloudflare's R2 bucket.
@@ -127,15 +125,19 @@ Video player view:
 
 <img width="1385" height="810" alt="videoplayerview-min" src="https://github.com/user-attachments/assets/4c25613a-82a4-4022-aca5-c262d14f974f" />
 
+## Features
+
+- Animated banner text that uses GSAP
+- Lazy-loaded hover previews
+- React-helmet-asyc used for improved SEO
 
 ## Planned future improvements
 
 - File search bar for uploader UI
 - Video suggestion after video has ended.
 - Improved SEO and meta tags
-. Sitemaps
+- Sitemaps
 - Option to toggle automatic start of the next video
-- Lazy-loaded hover previews
 - Featured video block once there's more content
 
 ## What I’ve learned
